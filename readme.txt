@@ -7,3 +7,11 @@ Installation:
 
 Known bugs:
 * currently doesn't work with default Windows terminal 
+
+
+Download:
+ Source code:
+  https://github.com/ftk/kbled
+
+ Binaries (for Windows 32 and 64 bits):
+  https://github.com/ftk/kbled/releases
