@@ -66,7 +66,7 @@ int main(void)
 #endif
 
                 static bool tried_pressing_scroll = false;
-                if(prev_en_us != en_us || prev_thread != cur_thread)
+                if(prev_en_us != en_us && prev_thread == cur_thread)
                         tried_pressing_scroll = false;
                 // setup light
                 if(!tried_pressing_scroll && en_us == get_scroll()) // en_us - scroll off, else on
