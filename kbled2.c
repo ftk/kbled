@@ -44,8 +44,6 @@ int main(void)
                 if(prev_en_us != en_us && cur_thread != prev_thread) // switched to other process with different layout
                 {
                         // change fg window layout
-                        //ActivateKeyboardLayout(prev_hkl, KLF_ACTIVATE | KLF_SETFORPROCESS); - doesn't work (changes for our process probably)
-                        
                         PostMessage(cur_window,
                                     WM_INPUTLANGCHANGEREQUEST,
                                     0,
@@ -56,6 +54,8 @@ int main(void)
 #else // method 2
                 if(prev_en_us != en_us && cur_thread == prev_thread) // switched layout manually
                 {
+                        SystemParametersInfo(SPI_SETDEFAULTINPUTLANG, 0, &cur_hkl, 0);
+                        
                         // send all windows message to switch their layout
                         // (by default windows sends it only to the current window (?))
                         PostMessage(HWND_BROADCAST,
@@ -65,14 +65,12 @@ int main(void)
                 }
 #endif
 
-                static bool tried_pressing_scroll = false;
-                if(prev_en_us != en_us && prev_thread == cur_thread)
-                        tried_pressing_scroll = false;
-                // setup light
-                if(!tried_pressing_scroll && en_us == get_scroll()) // en_us - scroll off, else on
+                // setup led
+
+                // press scroll only if changed layout and current led status is incorrect
+                if(prev_en_us != en_us && prev_thread == cur_thread && en_us == get_scroll()) // en_us - scroll off, else on
                 {
                         press_scroll();
-                        tried_pressing_scroll = true; // dont spam scroll presses if fg program doesnt handle it correctly (emacs...)
                 }
 
  
