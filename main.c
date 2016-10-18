@@ -92,6 +92,7 @@ int main(int argc, char * argv[])
 		    (LPARAM)prev_hkl);
 	en_us = prev_en_us;
 	cur_hkl = prev_hkl;
+        Sleep(200);
       }
     }
     else if(global_switch == 2)// method 2
@@ -106,6 +107,7 @@ int main(int argc, char * argv[])
 		    WM_INPUTLANGCHANGEREQUEST,
 		    0,
 		    (LPARAM)cur_hkl);
+        Sleep(200);
       }
     }
 
